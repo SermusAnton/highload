@@ -1,4 +1,4 @@
-package com.highload.backend.web.rest;
+package com.highload.backend.api.web.rest;
 
 import java.math.BigDecimal;
 

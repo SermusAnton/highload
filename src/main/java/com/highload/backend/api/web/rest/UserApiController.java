@@ -1,10 +1,11 @@
-package com.highload.backend.web.rest;
+package com.highload.backend.api.web.rest;
 
 import com.highload.backend.api.UserApi;
 import com.highload.backend.model.InlineResponse2001;
 import com.highload.backend.model.User;
 import com.highload.backend.model.UserRegisterBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.highload.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,12 +36,14 @@ public class UserApiController implements UserApi {
     private static final Logger log = LoggerFactory.getLogger(UserApiController.class);
 
     private final ObjectMapper objectMapper;
+    private final UserService userService;
 
     private final HttpServletRequest request;
 
     @Autowired
-    public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public UserApiController(ObjectMapper objectMapper, UserService userService, HttpServletRequest request) {
         this.objectMapper = objectMapper;
+        this.userService = userService;
         this.request = request;
     }
 
@@ -67,6 +70,7 @@ public class UserApiController implements UserApi {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
+                userService.register(body);
                 return new ResponseEntity<>(objectMapper.readValue("{\n  \"user_id\" : \"e4d2e6b0-cde2-42c5-aac3-0b8316f21e58\"\n}", InlineResponse2001.class), HttpStatus.NOT_IMPLEMENTED);
             } catch (IOException e) {
                 log.error("Couldn't serialize response for content type application/json", e);
