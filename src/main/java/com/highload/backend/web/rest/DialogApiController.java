@@ -1,5 +1,6 @@
-package com.highload.backend.api;
+package com.highload.backend.web.rest;
 
+import com.highload.backend.api.DialogApi;
 import com.highload.backend.model.DialogMessage;
 import com.highload.backend.model.UserIdSendBody;
 import com.fasterxml.jackson.databind.ObjectMapper;

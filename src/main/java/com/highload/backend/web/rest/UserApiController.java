@@ -1,5 +1,6 @@
-package com.highload.backend.api;
+package com.highload.backend.web.rest;
 
+import com.highload.backend.api.UserApi;
 import com.highload.backend.model.InlineResponse2001;
 import com.highload.backend.model.User;
 import com.highload.backend.model.UserRegisterBody;

@@ -1,5 +1,6 @@
-package com.highload.backend.api;
+package com.highload.backend.web.rest;
 
+import com.highload.backend.api.LoginApi;
 import com.highload.backend.model.InlineResponse200;
 import com.highload.backend.model.LoginBody;
 import com.fasterxml.jackson.databind.ObjectMapper;

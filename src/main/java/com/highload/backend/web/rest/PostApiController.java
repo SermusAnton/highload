@@ -1,7 +1,8 @@
-package com.highload.backend.api;
+package com.highload.backend.web.rest;
 
 import java.math.BigDecimal;
 
+import com.highload.backend.api.PostApi;
 import com.highload.backend.model.Post;
 import com.highload.backend.model.PostCreateBody;
 import com.highload.backend.model.PostUpdateBody;
