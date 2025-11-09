@@ -69,13 +69,10 @@ public class UserApiController implements UserApi {
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                userService.register(body);
-                return new ResponseEntity<>(objectMapper.readValue("{\n  \"user_id\" : \"e4d2e6b0-cde2-42c5-aac3-0b8316f21e58\"\n}", InlineResponse2001.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            var userId = userService.register(body);
+            var result = new InlineResponse2001();
+            result.setUserId(userId.toString());
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
