@@ -25,10 +25,12 @@ var flywayDatabasePostgresqlVersion = "11.7.2"
 var springdocVersion = "2.8.13"
 var swaggerVersion = "2.2.40"
 var jakartaValidationVersion = "3.1.1"
+var springSecurityCryptoVersion = "7.0.0-M3"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
+    implementation("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
     implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")

@@ -16,7 +16,7 @@ public class UserRepository {
         this.context = context;
     }
 
-    public UUID add(UserRegisterBody body) {
+    public UUID add(UserRegisterBody body, String hash) {
         var result = context.insertInto(Users.USERS)
             .columns(
                 Users.USERS.FIRSTNAME,
@@ -31,7 +31,7 @@ public class UserRepository {
                 body.getBirthdate(),
                 body.getBiography(),
                 body.getCity(),
-                body.getPassword())
+                hash)
             .returningResult(Users.USERS.ID)
             .fetchOne();
         assert result != null;
