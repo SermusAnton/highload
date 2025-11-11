@@ -40,6 +40,8 @@ dependencies {
     jooqCodegen("org.jooq:jooq-codegen")
     jooqCodegen("org.jooq:jooq")
     jooqCodegen("org.postgresql:postgresql:$postgresqlDriverVersion")
+    implementation("org.bitbucket.b_c:jose4j:0.9.6")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

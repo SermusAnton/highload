@@ -21,10 +21,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserApi {
 
-    @Operation(summary = "", description = "Получение анкеты пользователя", tags = {})
+    @Operation(description = "Получение анкеты пользователя")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Успешное получение анкеты пользователя",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))),
@@ -34,12 +35,12 @@ public interface UserApi {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
         @ApiResponse(responseCode = "503", description = "Ошибка сервера",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
-    ResponseEntity<User> userGetIdGet(
+    ResponseEntity<User> getBy(
         @Parameter(in = ParameterIn.PATH, description = "Идентификатор пользователя", required = true, schema = @Schema())
-        @PathVariable("id") String id
+        @PathVariable("id") UUID id
     );
 
-    @Operation(summary = "", description = "Регистрация нового пользователя", tags = {})
+    @Operation(description = "Регистрация нового пользователя")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Успешная регистрация",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))),
@@ -48,11 +49,11 @@ public interface UserApi {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
         @ApiResponse(responseCode = "503", description = "Ошибка сервера",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
-    ResponseEntity<InlineResponse2001> userRegisterPost(
-        @Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody UserRegisterBody body
+    ResponseEntity<InlineResponse2001> register(
+        @Parameter(in = ParameterIn.DEFAULT, schema = @Schema()) @Valid @RequestBody UserRegisterBody body
     );
 
-    @Operation(summary = "", description = "Поиск анкет", tags = {})
+    @Operation(description = "Поиск анкет")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Успешные поиск пользователя",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))),
@@ -63,9 +64,9 @@ public interface UserApi {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
     ResponseEntity<List<User>> userSearchGet(
         @NotNull @Parameter(in = ParameterIn.QUERY, description = "Условие поиска по имени", required = true, schema = @Schema())
-        @Valid @RequestParam(value = "first_name", required = true) String firstName,
+        @Valid @RequestParam(value = "first_name") String firstName,
         @NotNull @Parameter(in = ParameterIn.QUERY, description = "Условие поиска по фамилии", required = true, schema = @Schema())
-        @Valid @RequestParam(value = "last_name", required = true) String lastName
+        @Valid @RequestParam(value = "last_name") String lastName
     );
 }
 

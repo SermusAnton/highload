@@ -1,6 +1,7 @@
 package com.highload.backend.service;
 
 import com.highload.backend.dao.UserRepository;
+import com.highload.backend.model.User;
 import com.highload.backend.model.UserRegisterBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,10 @@ public class UserService {
     public UserService(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder = encoder;
+    }
+
+    public User getBy(UUID userId) {
+        return userRepository.getBy(userId);
     }
 
     public UUID register(UserRegisterBody body) {

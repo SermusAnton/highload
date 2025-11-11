@@ -1,6 +1,7 @@
 package com.highload.backend.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,29 +13,26 @@ import com.fasterxml.jackson.annotation.Nulls;
 @Validated
 public class LoginBody {
     @JsonProperty("id")
-
     @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
     @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
-    private String id = null;
+    private UUID id = null;
 
     @JsonProperty("password")
-
     @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
     @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
     private String password = null;
 
-    public LoginBody id(String id) {
-
+    public LoginBody id(UUID id) {
         this.id = id;
         return this;
     }
 
     @Schema(description = "Идентификатор пользователя")
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

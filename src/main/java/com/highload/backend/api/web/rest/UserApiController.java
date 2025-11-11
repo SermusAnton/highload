@@ -28,6 +28,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @Validated
@@ -48,24 +50,25 @@ public class UserApiController implements UserApi {
     }
 
     @GetMapping(value = "/user/get/{id}")
-    public ResponseEntity<User> userGetIdGet(
-        @Parameter(in = ParameterIn.PATH, description = "Идентификатор пользователя", required = true, schema = @Schema()) @PathVariable("id") String id
+    public ResponseEntity<User> getBy(
+        @Parameter(in = ParameterIn.PATH, description = "Идентификатор пользователя", required = true, schema = @Schema())
+        @PathVariable("id") UUID id
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<>(objectMapper.readValue("{\n  \"birthdate\" : \"2017-02-01T00:00:00.000+00:00\",\n  \"city\" : \"Москва\",\n  \"second_name\" : \"Фамилия\",\n  \"id\" : \"id\",\n  \"biography\" : \"Хобби, интересы и т.п.\",\n  \"first_name\" : \"Имя\"\n}", User.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            var user = userService.getBy(id);
+            if (Objects.isNull(user)) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(value = "/user/register")
-    public ResponseEntity<InlineResponse2001> userRegisterPost(@Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody UserRegisterBody body
+    public ResponseEntity<InlineResponse2001> register(@Parameter(in = ParameterIn.DEFAULT, schema = @Schema()) @Valid
+        @RequestBody UserRegisterBody body
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
@@ -75,7 +78,7 @@ public class UserApiController implements UserApi {
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/user/search")
