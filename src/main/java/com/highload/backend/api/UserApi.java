@@ -55,14 +55,14 @@ public interface UserApi {
 
     @Operation(description = "Поиск анкет")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Успешные поиск пользователя",
+        @ApiResponse(responseCode = "200", description = "Успешный поиск пользователя",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = User.class)))),
         @ApiResponse(responseCode = "400", description = "Невалидные данные"),
         @ApiResponse(responseCode = "500", description = "Ошибка сервера",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
         @ApiResponse(responseCode = "503", description = "Ошибка сервера",
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
-    ResponseEntity<List<User>> userSearchGet(
+    ResponseEntity<List<User>> search(
         @NotNull @Parameter(in = ParameterIn.QUERY, description = "Условие поиска по имени", required = true, schema = @Schema())
         @Valid @RequestParam(value = "first_name") String firstName,
         @NotNull @Parameter(in = ParameterIn.QUERY, description = "Условие поиска по фамилии", required = true, schema = @Schema())

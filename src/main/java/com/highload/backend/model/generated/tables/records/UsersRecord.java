@@ -36,30 +36,30 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     }
 
     /**
-     * Setter for <code>backend.users.firstname</code>.
+     * Setter for <code>backend.users.first_name</code>.
      */
-    public void setFirstname(String value) {
+    public void setFirstName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>backend.users.firstname</code>.
+     * Getter for <code>backend.users.first_name</code>.
      */
-    public String getFirstname() {
+    public String getFirstName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>backend.users.secondname</code>.
+     * Setter for <code>backend.users.second_name</code>.
      */
-    public void setSecondname(String value) {
+    public void setSecondName(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>backend.users.secondname</code>.
+     * Getter for <code>backend.users.second_name</code>.
      */
-    public String getSecondname() {
+    public String getSecondName() {
         return (String) get(2);
     }
 
@@ -106,16 +106,16 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     }
 
     /**
-     * Setter for <code>backend.users.passwordhash</code>.
+     * Setter for <code>backend.users.password_hash</code>.
      */
-    public void setPasswordhash(String value) {
+    public void setPasswordHash(String value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>backend.users.passwordhash</code>.
+     * Getter for <code>backend.users.password_hash</code>.
      */
-    public String getPasswordhash() {
+    public String getPasswordHash() {
         return (String) get(6);
     }
 
@@ -142,16 +142,16 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     /**
      * Create a detached, initialised UsersRecord
      */
-    public UsersRecord(UUID id, String firstname, String secondname, LocalDate birthdate, String biography, String city, String passwordhash) {
+    public UsersRecord(UUID id, String firstName, String secondName, LocalDate birthdate, String biography, String city, String passwordHash) {
         super(Users.USERS);
 
         setId(id);
-        setFirstname(firstname);
-        setSecondname(secondname);
+        setFirstName(firstName);
+        setSecondName(secondName);
         setBirthdate(birthdate);
         setBiography(biography);
         setCity(city);
-        setPasswordhash(passwordhash);
+        setPasswordHash(passwordHash);
         resetChangedOnNotNull();
     }
 }

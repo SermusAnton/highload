@@ -57,14 +57,14 @@ public class Users extends TableImpl<UsersRecord> {
     public final TableField<UsersRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>backend.users.firstname</code>.
+     * The column <code>backend.users.first_name</code>.
      */
-    public final TableField<UsersRecord, String> FIRSTNAME = createField(DSL.name("firstname"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<UsersRecord, String> FIRST_NAME = createField(DSL.name("first_name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>backend.users.secondname</code>.
+     * The column <code>backend.users.second_name</code>.
      */
-    public final TableField<UsersRecord, String> SECONDNAME = createField(DSL.name("secondname"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<UsersRecord, String> SECOND_NAME = createField(DSL.name("second_name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>backend.users.birthdate</code>.
@@ -82,9 +82,9 @@ public class Users extends TableImpl<UsersRecord> {
     public final TableField<UsersRecord, String> CITY = createField(DSL.name("city"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>backend.users.passwordhash</code>.
+     * The column <code>backend.users.password_hash</code>.
      */
-    public final TableField<UsersRecord, String> PASSWORDHASH = createField(DSL.name("passwordhash"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<UsersRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

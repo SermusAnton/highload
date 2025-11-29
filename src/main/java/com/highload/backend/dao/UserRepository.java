@@ -6,6 +6,7 @@ import com.highload.backend.model.generated.tables.Users;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,12 +30,12 @@ public class UserRepository {
     public UUID add(UserRegisterBody body, String hash) {
         var result = context.insertInto(Users.USERS)
             .columns(
-                Users.USERS.FIRSTNAME,
-                Users.USERS.SECONDNAME,
+                Users.USERS.FIRST_NAME,
+                Users.USERS.SECOND_NAME,
                 Users.USERS.BIRTHDATE,
                 Users.USERS.BIOGRAPHY,
                 Users.USERS.CITY,
-                Users.USERS.PASSWORDHASH)
+                Users.USERS.PASSWORD_HASH)
             .values(
                 body.getFirstName(),
                 body.getSecondName(),
@@ -49,9 +50,17 @@ public class UserRepository {
     }
 
     public String getHashPassword(UUID userId) {
-        return context.select(Users.USERS.PASSWORDHASH)
+        return context.select(Users.USERS.PASSWORD_HASH)
             .from(Users.USERS)
             .where(Users.USERS.ID.eq(userId))
-            .fetchOne(Users.USERS.PASSWORDHASH, String.class);
+            .fetchOne(Users.USERS.PASSWORD_HASH, String.class);
+    }
+
+    public List<User> find(String firstName, String lastName) {
+        return context.select().from(Users.USERS)
+            .where(Users.USERS.FIRST_NAME.likeIgnoreCase("%" + firstName + "%"))
+            .and(Users.USERS.SECOND_NAME.likeIgnoreCase("%" + lastName + "%"))
+            .orderBy(Users.USERS.ID)
+            .fetchInto(User.class);
     }
 }
