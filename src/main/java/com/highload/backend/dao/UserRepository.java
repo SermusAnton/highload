@@ -58,8 +58,8 @@ public class UserRepository {
 
     public List<User> find(String firstName, String lastName) {
         return context.select().from(Users.USERS)
-            .where(Users.USERS.FIRST_NAME.likeIgnoreCase("%" + firstName + "%"))
-            .and(Users.USERS.SECOND_NAME.likeIgnoreCase("%" + lastName + "%"))
+            .where(Users.USERS.FIRST_NAME.likeIgnoreCase(firstName + "%"))
+            .and(Users.USERS.SECOND_NAME.likeIgnoreCase(lastName + "%"))
             .orderBy(Users.USERS.ID)
             .fetchInto(User.class);
     }
