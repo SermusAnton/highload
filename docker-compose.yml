@@ -1,25 +1,30 @@
----
-version: "3"
-
 services:
   db:
     image: postgres:15.14
-    container_name: postgres1514
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
     command: ["postgres", "-c", "logging_collector=on"]
     ports:
-      - "5432:5432"
+      - 5432:5432
 
   backend:
+    container_name: backend
     build: ./
     ports:
-      - "8080:8080"
-    network_mode: host
+      - 8080:8080
     depends_on:
       - db
+
+  jmeter:
+    container_name: jmeter
+    build: /jmeter
+    ports:
+      - 9270:9270
+    depends_on:
+      - backend
 
 volumes:
   postgres-data:
