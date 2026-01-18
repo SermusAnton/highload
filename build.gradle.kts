@@ -60,7 +60,7 @@ fun propValue(propName: String, defValue: String): String {
     return defValue
 }
 
-val dbHost = propValue ("DB_HOST","localhost")
+val dbHost = propValue ("DB_HOST","pgmaster")
 val dbPort = propValue ("DB_PORT","5432")
 val dbUser = propValue ("DB_USER","backend")
 val dbPass = propValue ("DB_PASSWORD","backend")
@@ -99,7 +99,7 @@ buildscript {
 }
 
 flyway {
-    url = "jdbc:postgresql://localhost:5432/highload"
+    url = "jdbc:postgresql://pgmaster:5432/highload"
     user = "backend"
     password = "backend"
     schemas = arrayOf("backend")
