@@ -1,14 +1,25 @@
 services:
-  db:
-    image: postgres:15.14
-    container_name: postgres
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    command: ["postgres", "-c", "logging_collector=on"]
+  db_pgmaster:
+    build: /pgmaster
+    container_name: pgmaster
     ports:
       - 5432:5432
+
+  db_pgslave1:
+    build: /pgslave1
+    container_name: pgslave1
+    ports:
+      - 15432:5432
+    depends_on:
+      - db_pgmaster
+
+  db_pgslave2:
+    build: /pgslave2
+    container_name: pgslave2
+    ports:
+      - 25432:5432
+    depends_on:
+      - db_pgmaster
 
   backend:
     build: ./
@@ -16,7 +27,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - db
+      - db_pgmaster
 
   jmeter:
     build: /jmeter
@@ -65,7 +76,3 @@ services:
       - GF_SMTP_FROM_ADDRESS=myaddress@gmail.com
     depends_on:
       - prometheus
-
-volumes:
-  postgres-data:
-    external: true
