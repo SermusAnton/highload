@@ -30,6 +30,7 @@ var springSecurityCryptoVersion = "7.0.0-M3"
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
     implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.flywaydb:flyway-core")
