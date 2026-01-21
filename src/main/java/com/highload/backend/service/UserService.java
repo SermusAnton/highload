@@ -6,11 +6,13 @@ import com.highload.backend.model.UserRegisterBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional(readOnly = true)
 public class UserService {
 
     private final UserRepository userRepository;
@@ -27,6 +29,7 @@ public class UserService {
         return userRepository.getBy(userId);
     }
 
+    @Transactional
     public UUID register(UserRegisterBody body) {
         var hash = encoder.encode(body.getPassword());
         body.setPassword("");
