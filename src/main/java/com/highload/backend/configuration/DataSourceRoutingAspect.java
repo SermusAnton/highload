@@ -5,30 +5,31 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Aspect
 @Component
 public class DataSourceRoutingAspect {
 
-    @Pointcut("@within(org.springframework.transaction.annotation.Transactional) " +
-        "|| @annotation(org.springframework.transaction.annotation.Transactional)")
+    @Pointcut("@within(com.highload.backend.configuration.ReadOnly) " +
+        "|| @annotation(com.highload.backend.configuration.ReadOnly)" +
+    "|| @within(com.highload.backend.configuration.Write) " +
+        "|| @annotation(com.highload.backend.configuration.Write)")
     public void transactionalMethods() {
     }
 
-    @Before("transactionalMethods()")
-    public void setContext() {
-        TransactionStatus status = TransactionAspectSupport.currentTransactionStatus();
-        if (status.isReadOnly()) {
-            DataSourceContextHolder.setMode("READ");
-        } else {
-            DataSourceContextHolder.setMode("WRITE");
-        }
+    @Before("transactionalMethods() && @within(com.highload.backend.configuration.ReadOnly) " +
+        "|| @annotation(com.highload.backend.configuration.ReadOnly)" )
+    public void setContextRead() {
+        DataSourceContextHolder.setMode("READ");
     }
 
-    @After("@within(org.springframework.transaction.annotation.Transactional) " +
-        "|| @annotation(org.springframework.transaction.annotation.Transactional)")
+    @Before("transactionalMethods() && @within(com.highload.backend.configuration.Write) " +
+        "|| @annotation(com.highload.backend.configuration.Write)" )
+    public void setContextWrite() {
+        DataSourceContextHolder.setMode("WRITE");
+    }
+
+    @After("transactionalMethods()")
     public void clearContext() {
         DataSourceContextHolder.clear();
     }
