@@ -5,18 +5,28 @@ package com.highload.backend.model.generated.tables;
 
 
 import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Indexes;
 import com.highload.backend.model.generated.Keys;
+import com.highload.backend.model.generated.tables.Friend.FriendPath;
+import com.highload.backend.model.generated.tables.Post.PostPath;
 import com.highload.backend.model.generated.tables.records.UsersRecord;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.ForeignKey;
+import org.jooq.Index;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
+import org.jooq.Record;
 import org.jooq.SQL;
 import org.jooq.Schema;
 import org.jooq.Select;
@@ -74,7 +84,7 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>backend.users.biography</code>.
      */
-    public final TableField<UsersRecord, String> BIOGRAPHY = createField(DSL.name("biography"), SQLDataType.VARCHAR(1000).nullable(false), this, "");
+    public final TableField<UsersRecord, String> BIOGRAPHY = createField(DSL.name("biography"), SQLDataType.VARCHAR(1000), this, "");
 
     /**
      * The column <code>backend.users.city</code>.
@@ -84,7 +94,7 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>backend.users.password_hash</code>.
      */
-    public final TableField<UsersRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<UsersRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR(100), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -115,14 +125,90 @@ public class Users extends TableImpl<UsersRecord> {
         this(DSL.name("users"), null);
     }
 
+    public <O extends Record> Users(Table<O> path, ForeignKey<O, UsersRecord> childPath, InverseForeignKey<O, UsersRecord> parentPath) {
+        super(path, childPath, parentPath, USERS);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class UsersPath extends Users implements Path<UsersRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> UsersPath(Table<O> path, ForeignKey<O, UsersRecord> childPath, InverseForeignKey<O, UsersRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private UsersPath(Name alias, Table<UsersRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public UsersPath as(String alias) {
+            return new UsersPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public UsersPath as(Name alias) {
+            return new UsersPath(alias, this);
+        }
+
+        @Override
+        public UsersPath as(Table<?> alias) {
+            return new UsersPath(alias.getQualifiedName(), this);
+        }
+    }
+
     @Override
     public Schema getSchema() {
         return aliased() ? null : Backend.BACKEND;
     }
 
     @Override
+    public List<Index> getIndexes() {
+        return Arrays.asList(Indexes.BACKEND_USERS_SECOND_NAME_IDX);
+    }
+
+    @Override
     public UniqueKey<UsersRecord> getPrimaryKey() {
         return Keys.PK_USERS;
+    }
+
+    private transient FriendPath _fkUsersIdFriendFriendId;
+
+    /**
+     * Get the implicit to-many join path to the <code>backend.friend</code>
+     * table, via the <code>fk_users_id_friend_friend_id</code> key
+     */
+    public FriendPath fkUsersIdFriendFriendId() {
+        if (_fkUsersIdFriendFriendId == null)
+            _fkUsersIdFriendFriendId = new FriendPath(this, null, Keys.FRIEND__FK_USERS_ID_FRIEND_FRIEND_ID.getInverseKey());
+
+        return _fkUsersIdFriendFriendId;
+    }
+
+    private transient FriendPath _fkUsersIdFriendUserId;
+
+    /**
+     * Get the implicit to-many join path to the <code>backend.friend</code>
+     * table, via the <code>fk_users_id_friend_user_id</code> key
+     */
+    public FriendPath fkUsersIdFriendUserId() {
+        if (_fkUsersIdFriendUserId == null)
+            _fkUsersIdFriendUserId = new FriendPath(this, null, Keys.FRIEND__FK_USERS_ID_FRIEND_USER_ID.getInverseKey());
+
+        return _fkUsersIdFriendUserId;
+    }
+
+    private transient PostPath _post;
+
+    /**
+     * Get the implicit to-many join path to the <code>backend.post</code> table
+     */
+    public PostPath post() {
+        if (_post == null)
+            _post = new PostPath(this, null, Keys.POST__FK_USERS_ID_POST_USER_ID.getInverseKey());
+
+        return _post;
     }
 
     @Override

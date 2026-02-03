@@ -4,9 +4,14 @@
 package com.highload.backend.model.generated;
 
 
+import com.highload.backend.model.generated.tables.Friend;
+import com.highload.backend.model.generated.tables.Post;
 import com.highload.backend.model.generated.tables.Users;
+import com.highload.backend.model.generated.tables.records.FriendRecord;
+import com.highload.backend.model.generated.tables.records.PostRecord;
 import com.highload.backend.model.generated.tables.records.UsersRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
@@ -24,5 +29,15 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<FriendRecord> PK_FRIEND = Internal.createUniqueKey(Friend.FRIEND, DSL.name("pk_friend"), new TableField[] { Friend.FRIEND.USER_ID, Friend.FRIEND.FRIEND_ID }, true);
+    public static final UniqueKey<PostRecord> PK_POST = Internal.createUniqueKey(Post.POST, DSL.name("pk_post"), new TableField[] { Post.POST.ID }, true);
     public static final UniqueKey<UsersRecord> PK_USERS = Internal.createUniqueKey(Users.USERS, DSL.name("pk_users"), new TableField[] { Users.USERS.ID }, true);
+
+    // -------------------------------------------------------------------------
+    // FOREIGN KEY definitions
+    // -------------------------------------------------------------------------
+
+    public static final ForeignKey<FriendRecord, UsersRecord> FRIEND__FK_USERS_ID_FRIEND_FRIEND_ID = Internal.createForeignKey(Friend.FRIEND, DSL.name("fk_users_id_friend_friend_id"), new TableField[] { Friend.FRIEND.FRIEND_ID }, Keys.PK_USERS, new TableField[] { Users.USERS.ID }, true);
+    public static final ForeignKey<FriendRecord, UsersRecord> FRIEND__FK_USERS_ID_FRIEND_USER_ID = Internal.createForeignKey(Friend.FRIEND, DSL.name("fk_users_id_friend_user_id"), new TableField[] { Friend.FRIEND.USER_ID }, Keys.PK_USERS, new TableField[] { Users.USERS.ID }, true);
+    public static final ForeignKey<PostRecord, UsersRecord> POST__FK_USERS_ID_POST_USER_ID = Internal.createForeignKey(Post.POST, DSL.name("fk_users_id_post_user_id"), new TableField[] { Post.POST.USER_ID }, Keys.PK_USERS, new TableField[] { Users.USERS.ID }, true);
 }

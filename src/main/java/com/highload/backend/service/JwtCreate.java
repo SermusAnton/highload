@@ -6,6 +6,10 @@ import org.jose4j.jwk.RsaJwkGenerator;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.jwt.MalformedClaimException;
+import org.jose4j.jwt.consumer.InvalidJwtException;
+import org.jose4j.jwt.consumer.JwtConsumer;
+import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.lang.JoseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,5 +75,24 @@ public class JwtCreate {
         List<String> groups = Arrays.asList("group-one", "other-group", "group-three");
         claims.setStringListClaim("groups", groups); // multi-valued claims work too and will end up as a JSON array
         return claims;
+    }
+
+    public static String extractUserId(String authHeader) {
+        JwtConsumer jwtConsumer = new JwtConsumerBuilder()
+            .setVerificationKey(rsaJsonWebKey.getPublicKey()) // Проверка подписи
+            .setExpectedAudience("highload-backend") // Проверка аудитории
+            .build();
+        String jwt = authHeader;
+        if (authHeader != null && authHeader.toLowerCase().startsWith("bearer ")) {
+            jwt = authHeader.substring(7);
+        }
+        try {
+            JwtClaims claims =  jwtConsumer.processToClaims(jwt);
+            return claims.getStringClaimValue("userId");
+        } catch (InvalidJwtException e) {
+            throw new RuntimeException(e);
+        } catch (MalformedClaimException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

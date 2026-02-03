@@ -46,7 +46,7 @@ public class UserRepository {
             .returningResult(Users.USERS.ID)
             .fetchOne();
         assert result != null;
-        return result.getValue((Users.USERS.ID));
+        return result.getValue(Users.USERS.ID);
     }
 
     public String getHashPassword(UUID userId) {
