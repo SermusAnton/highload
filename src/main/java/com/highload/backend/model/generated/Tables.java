@@ -4,6 +4,8 @@
 package com.highload.backend.model.generated;
 
 
+import com.highload.backend.model.generated.tables.Friend;
+import com.highload.backend.model.generated.tables.Post;
 import com.highload.backend.model.generated.tables.Users;
 
 
@@ -12,6 +14,16 @@ import com.highload.backend.model.generated.tables.Users;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>backend.friend</code>.
+     */
+    public static final Friend FRIEND = Friend.FRIEND;
+
+    /**
+     * The table <code>backend.post</code>.
+     */
+    public static final Post POST = Post.POST;
 
     /**
      * The table <code>backend.users</code>.

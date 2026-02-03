@@ -7,6 +7,8 @@ import com.highload.backend.model.Post;
 import com.highload.backend.model.PostCreateBody;
 import com.highload.backend.model.PostUpdateBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.highload.backend.service.JwtCreate;
+import com.highload.backend.service.PostService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,77 +28,58 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class PostApiController implements PostApi {
 
-    private static final Logger log = LoggerFactory.getLogger(PostApiController.class);
-
-    private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
 
+    private final PostService postService;
+
     @Autowired
-    public PostApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
+    public PostApiController(ObjectMapper objectMapper, HttpServletRequest request, PostService postService) {
         this.request = request;
+        this.postService = postService;
     }
 
-    public ResponseEntity<String> postCreatePost(@Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody PostCreateBody body
-    ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<String>(objectMapper.readValue("\"1d535fd6-7521-4cb1-aa6d-031be7123c4d\"", String.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<String> createPost(PostCreateBody body) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String userId = JwtCreate.extractUserId(authorizationHeader);
+        var id = postService.add(UUID.fromString(userId), body);
+        return new ResponseEntity<>(id.toString(), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Post> getPost(String id) {
+        var result = postService.getBy(UUID.fromString(id));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Void> deletePost(String id) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String userId = JwtCreate.extractUserId(authorizationHeader);
+        var result = postService.setDeleted(UUID.fromString(id), UUID.fromString(userId));
+        if (result == 1) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        return new ResponseEntity<String>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<Void> postDeleteIdPut(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("id") String id
-    ) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<List<Post>> postFeedGet(@DecimalMin("0") @Parameter(in = ParameterIn.QUERY, description = "", schema = @Schema(defaultValue = "0")) @Valid @RequestParam(value = "offset", required = false, defaultValue = "0") BigDecimal offset
-        , @DecimalMin("1") @Parameter(in = ParameterIn.QUERY, description = "", schema = @Schema(defaultValue = "10")) @Valid @RequestParam(value = "limit", required = false, defaultValue = "10") BigDecimal limit
-    ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Post>>(objectMapper.readValue("[ {\n  \"author_user_id\" : \"author_user_id\",\n  \"id\" : \"1d535fd6-7521-4cb1-aa6d-031be7123c4d\",\n  \"text\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa.\"\n}, {\n  \"author_user_id\" : \"author_user_id\",\n  \"id\" : \"1d535fd6-7521-4cb1-aa6d-031be7123c4d\",\n  \"text\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa.\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Post>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<Void> updatePost(PostUpdateBody body) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String userId = JwtCreate.extractUserId(authorizationHeader);
+        var result = postService.update(UUID.fromString(userId), body);
+        if (result == 1) {
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-
-        return new ResponseEntity<List<Post>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<Post> postGetIdGet(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("id") String id
-    ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<Post>(objectMapper.readValue("{\n  \"author_user_id\" : \"author_user_id\",\n  \"id\" : \"1d535fd6-7521-4cb1-aa6d-031be7123c4d\",\n  \"text\" : \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus mauris ultrices eros in cursus turpis massa.\"\n}", Post.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<Post>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<Post>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-    public ResponseEntity<Void> postUpdatePut(@Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody PostUpdateBody body
-    ) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<List<Post>> feedPosts(Long offset,
+        Long limit) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String userId = JwtCreate.extractUserId(authorizationHeader);
+        var result = postService.getPostsByFriends(UUID.fromString(userId), offset, limit);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

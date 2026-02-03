@@ -30,6 +30,7 @@ import java.util.UUID;
 @RestController
 @Validated
 public class UserApiController implements UserApi {
+
     private final UserService userService;
 
     private final HttpServletRequest request;
