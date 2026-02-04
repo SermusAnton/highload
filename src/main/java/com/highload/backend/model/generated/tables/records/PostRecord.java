@@ -6,6 +6,7 @@ package com.highload.backend.model.generated.tables.records;
 
 import com.highload.backend.model.generated.tables.Post;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.jooq.Record1;
@@ -76,6 +77,20 @@ public class PostRecord extends UpdatableRecordImpl<PostRecord> {
         return (Boolean) get(3);
     }
 
+    /**
+     * Setter for <code>backend.post.create_time</code>.
+     */
+    public void setCreateTime(LocalDateTime value) {
+        set(4, value);
+    }
+
+    /**
+     * Getter for <code>backend.post.create_time</code>.
+     */
+    public LocalDateTime getCreateTime() {
+        return (LocalDateTime) get(4);
+    }
+
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -99,13 +114,14 @@ public class PostRecord extends UpdatableRecordImpl<PostRecord> {
     /**
      * Create a detached, initialised PostRecord
      */
-    public PostRecord(UUID id, UUID userId, String text, Boolean isDeleted) {
+    public PostRecord(UUID id, UUID userId, String text, Boolean isDeleted, LocalDateTime createTime) {
         super(Post.POST);
 
         setId(id);
         setUserId(userId);
         setText(text);
         setIsDeleted(isDeleted);
+        setCreateTime(createTime);
         resetChangedOnNotNull();
     }
 }

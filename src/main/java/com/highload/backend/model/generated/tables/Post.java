@@ -9,6 +9,7 @@ import com.highload.backend.model.generated.Keys;
 import com.highload.backend.model.generated.tables.Users.UsersPath;
 import com.highload.backend.model.generated.tables.records.PostRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -70,12 +71,17 @@ public class Post extends TableImpl<PostRecord> {
     /**
      * The column <code>backend.post.text</code>.
      */
-    public final TableField<PostRecord, String> TEXT = createField(DSL.name("text"), SQLDataType.VARCHAR(1000), this, "");
+    public final TableField<PostRecord, String> TEXT = createField(DSL.name("text"), SQLDataType.VARCHAR(2000), this, "");
 
     /**
      * The column <code>backend.post.is_deleted</code>.
      */
     public final TableField<PostRecord, Boolean> IS_DELETED = createField(DSL.name("is_deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>backend.post.create_time</code>.
+     */
+    public final TableField<PostRecord, LocalDateTime> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.LOCALDATETIME)), this, "");
 
     private Post(Name alias, Table<PostRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
