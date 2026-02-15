@@ -1,5 +1,6 @@
 package com.highload.backend.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,6 +27,11 @@ public class Post {
     @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
     @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
     private String authorUserId = null;
+
+    @JsonProperty("create_time")
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)  // Exclude from JSON if absent
+    @JsonSetter(nulls = Nulls.FAIL)    // FAIL setting if the value is null
+    private LocalDateTime dateTime;
 
     public Post id(String id) {
         this.id = id;
@@ -67,6 +73,15 @@ public class Post {
 
     public void setAuthorUserId(String authorUserId) {
         this.authorUserId = authorUserId;
+    }
+
+    @Schema(description = "Время создания поста")
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     @Override
