@@ -2,7 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.5.7"
     id("io.spring.dependency-management") version "1.1.7"
-    id ("org.flywaydb.flyway") version "11.7.2"
+    id ("org.flywaydb.flyway") version "11.20.3"
     id("org.jooq.jooq-codegen-gradle") version "3.19.27"
 }
 
@@ -21,7 +21,7 @@ repositories {
 }
 
 var postgresqlDriverVersion = "42.7.8"
-var flywayDatabasePostgresqlVersion = "11.7.2"
+var flywayDatabasePostgresqlVersion = "11.20.3"
 var springdocVersion = "2.8.13"
 var swaggerVersion = "2.2.40"
 var jakartaValidationVersion = "3.1.1"
@@ -31,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
     implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.flywaydb:flyway-core")
@@ -42,6 +43,7 @@ dependencies {
     jooqCodegen("org.jooq:jooq")
     jooqCodegen("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.bitbucket.b_c:jose4j:0.9.6")
+    implementation("redis.clients:jedis:7.2.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

@@ -1,7 +1,5 @@
 package com.highload.backend.api.web.rest;
 
-import java.math.BigDecimal;
-
 import com.highload.backend.api.PostApi;
 import com.highload.backend.model.Post;
 import com.highload.backend.model.PostCreateBody;
@@ -9,24 +7,13 @@ import com.highload.backend.model.PostUpdateBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.highload.backend.service.JwtCreate;
 import com.highload.backend.service.PostService;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 

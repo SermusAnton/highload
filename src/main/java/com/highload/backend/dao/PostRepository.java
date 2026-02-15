@@ -1,5 +1,6 @@
 package com.highload.backend.dao;
 
+import com.highload.backend.dao.mapper.PostMapper;
 import com.highload.backend.model.PostUpdateBody;
 import com.highload.backend.model.generated.tables.Friend;
 import com.highload.backend.model.generated.tables.Post;
@@ -43,6 +44,14 @@ public class PostRepository {
         return result.into(com.highload.backend.model.Post.class);
     }
 
+    public List<com.highload.backend.model.Post> getAll() {
+        return context
+            .selectFrom(Post.POST)
+            .where(Post.POST.IS_DELETED.eq(Boolean.FALSE))
+            .orderBy(Post.POST.USER_ID, Post.POST.CREATE_TIME)
+            .fetch(new PostMapper());
+    }
+
     public List<com.highload.backend.model.Post> getPostsByFriends(UUID userId,
         Long offset,
         Long limit) {
@@ -55,7 +64,7 @@ public class PostRepository {
             .orderBy(Post.POST.USER_ID, Post.POST.ID)
             .limit(limit)
             .offset(offset)
-            .fetchInto(com.highload.backend.model.Post.class);
+            .fetch(new PostMapper());
     }
 
     public int setDeleted(UUID id, UUID userId) {
