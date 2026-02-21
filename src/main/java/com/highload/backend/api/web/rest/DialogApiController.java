@@ -37,7 +37,7 @@ public class DialogApiController implements DialogApi {
         this.request = request;
     }
 
-    public ResponseEntity<List<DialogMessage>> dialogUserIdListGet(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
+    public ResponseEntity<List<DialogMessage>> dialogList(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
     ) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
@@ -52,7 +52,7 @@ public class DialogApiController implements DialogApi {
         return new ResponseEntity<List<DialogMessage>>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    public ResponseEntity<Void> dialogUserIdSendPost(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
+    public ResponseEntity<Void> dialogSend(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
         , @Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody UserIdSendBody body
     ) {
         String accept = request.getHeader("Accept");
