@@ -54,7 +54,7 @@ public interface DialogApi {
     @PostMapping(value = "/dialog/{user_id}/send")
     ResponseEntity<Void> dialogSend(
         @Parameter(in = ParameterIn.PATH, required = true, schema = @Schema()) @PathVariable("user_id") String userId,
-        @Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody UserIdSendBody body
+        @Parameter(in = ParameterIn.DEFAULT, schema = @Schema()) @Valid @RequestBody UserIdSendBody body
     );
 }
 
