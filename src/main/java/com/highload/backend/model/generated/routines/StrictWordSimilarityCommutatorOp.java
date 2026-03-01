@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -23,19 +23,19 @@ public class StrictWordSimilarityCommutatorOp extends AbstractRoutine<Boolean> {
 
     /**
      * The parameter
-     * <code>backend.strict_word_similarity_commutator_op.RETURN_VALUE</code>.
+     * <code>public.strict_word_similarity_commutator_op.RETURN_VALUE</code>.
      */
     public static final Parameter<Boolean> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.BOOLEAN, false, false);
 
     /**
      * The parameter
-     * <code>backend.strict_word_similarity_commutator_op._1</code>.
+     * <code>public.strict_word_similarity_commutator_op._1</code>.
      */
     public static final Parameter<String> _1 = Internal.createParameter("_1", SQLDataType.CLOB, false, true);
 
     /**
      * The parameter
-     * <code>backend.strict_word_similarity_commutator_op._2</code>.
+     * <code>public.strict_word_similarity_commutator_op._2</code>.
      */
     public static final Parameter<String> _2 = Internal.createParameter("_2", SQLDataType.CLOB, false, true);
 
@@ -43,7 +43,7 @@ public class StrictWordSimilarityCommutatorOp extends AbstractRoutine<Boolean> {
      * Create a new routine call instance
      */
     public StrictWordSimilarityCommutatorOp() {
-        super("strict_word_similarity_commutator_op", Backend.BACKEND, SQLDataType.BOOLEAN);
+        super("strict_word_similarity_commutator_op", Public.PUBLIC, SQLDataType.BOOLEAN);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

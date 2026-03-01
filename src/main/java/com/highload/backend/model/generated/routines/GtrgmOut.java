@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -47,13 +47,13 @@ public class GtrgmOut extends AbstractRoutine<Object> {
      * configuration.
      */
     @Deprecated
-    public static final Parameter<Object> _1 = Internal.createParameter("_1", DefaultDataType.getDefaultDataType("\"backend\".\"gtrgm\""), false, true);
+    public static final Parameter<Object> _1 = Internal.createParameter("_1", DefaultDataType.getDefaultDataType("\"public\".\"gtrgm\""), false, true);
 
     /**
      * Create a new routine call instance
      */
     public GtrgmOut() {
-        super("gtrgm_out", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"cstring\""));
+        super("gtrgm_out", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"cstring\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

@@ -4,29 +4,47 @@
 package com.highload.backend.model.generated;
 
 
+import com.highload.backend.model.generated.tables.CitusSchemas;
+import com.highload.backend.model.generated.tables.CitusTables;
+import com.highload.backend.model.generated.tables.Dialog;
 import com.highload.backend.model.generated.tables.Friend;
 import com.highload.backend.model.generated.tables.Post;
 import com.highload.backend.model.generated.tables.Users;
 
 
 /**
- * Convenience access to all tables in backend.
+ * Convenience access to all tables in public.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
     /**
-     * The table <code>backend.friend</code>.
+     * The table <code>public.citus_schemas</code>.
+     */
+    public static final CitusSchemas CITUS_SCHEMAS = CitusSchemas.CITUS_SCHEMAS;
+
+    /**
+     * The table <code>public.citus_tables</code>.
+     */
+    public static final CitusTables CITUS_TABLES = CitusTables.CITUS_TABLES;
+
+    /**
+     * The table <code>public.dialog</code>.
+     */
+    public static final Dialog DIALOG = Dialog.DIALOG;
+
+    /**
+     * The table <code>public.friend</code>.
      */
     public static final Friend FRIEND = Friend.FRIEND;
 
     /**
-     * The table <code>backend.post</code>.
+     * The table <code>public.post</code>.
      */
     public static final Post POST = Post.POST;
 
     /**
-     * The table <code>backend.users</code>.
+     * The table <code>public.users</code>.
      */
     public static final Users USERS = Users.USERS;
 }

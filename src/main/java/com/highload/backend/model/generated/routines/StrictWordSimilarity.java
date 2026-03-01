@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -22,17 +22,17 @@ public class StrictWordSimilarity extends AbstractRoutine<Float> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.strict_word_similarity.RETURN_VALUE</code>.
+     * The parameter <code>public.strict_word_similarity.RETURN_VALUE</code>.
      */
     public static final Parameter<Float> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.REAL, false, false);
 
     /**
-     * The parameter <code>backend.strict_word_similarity._1</code>.
+     * The parameter <code>public.strict_word_similarity._1</code>.
      */
     public static final Parameter<String> _1 = Internal.createParameter("_1", SQLDataType.CLOB, false, true);
 
     /**
-     * The parameter <code>backend.strict_word_similarity._2</code>.
+     * The parameter <code>public.strict_word_similarity._2</code>.
      */
     public static final Parameter<String> _2 = Internal.createParameter("_2", SQLDataType.CLOB, false, true);
 
@@ -40,7 +40,7 @@ public class StrictWordSimilarity extends AbstractRoutine<Float> {
      * Create a new routine call instance
      */
     public StrictWordSimilarity() {
-        super("strict_word_similarity", Backend.BACKEND, SQLDataType.REAL);
+        super("strict_word_similarity", Public.PUBLIC, SQLDataType.REAL);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

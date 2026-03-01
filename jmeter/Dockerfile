@@ -5,7 +5,7 @@ ENV JMETER_HOME /opt/apache-jmeter-${JMETER_VERSION}
 ENV JMETER_BIN ${JMETER_HOME}/bin
 ENV JMETER_DOWNLOAD_URL https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-${JMETER_VERSION}.tgz
 ARG JMETER_PROMETHEUS_VERSION="0.6.0"
-ARG TEST_FILE="test2.jmx"
+ARG TEST_FILE="test3.jmx"
 ENV WAIT_FOR_IT_DOWNLOAD_URL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 
 # Install necessary packages: openjdk for Java, curl to download, and bash to run scripts

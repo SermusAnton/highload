@@ -22,70 +22,70 @@ public class PostRecord extends UpdatableRecordImpl<PostRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>backend.post.id</code>.
+     * Setter for <code>public.post.id</code>.
      */
     public void setId(UUID value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>backend.post.id</code>.
+     * Getter for <code>public.post.id</code>.
      */
     public UUID getId() {
         return (UUID) get(0);
     }
 
     /**
-     * Setter for <code>backend.post.user_id</code>.
+     * Setter for <code>public.post.user_id</code>.
      */
     public void setUserId(UUID value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>backend.post.user_id</code>.
+     * Getter for <code>public.post.user_id</code>.
      */
     public UUID getUserId() {
         return (UUID) get(1);
     }
 
     /**
-     * Setter for <code>backend.post.text</code>.
+     * Setter for <code>public.post.text</code>.
      */
     public void setText(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>backend.post.text</code>.
+     * Getter for <code>public.post.text</code>.
      */
     public String getText() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>backend.post.is_deleted</code>.
+     * Setter for <code>public.post.is_deleted</code>.
      */
     public void setIsDeleted(Boolean value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>backend.post.is_deleted</code>.
+     * Getter for <code>public.post.is_deleted</code>.
      */
     public Boolean getIsDeleted() {
         return (Boolean) get(3);
     }
 
     /**
-     * Setter for <code>backend.post.create_time</code>.
+     * Setter for <code>public.post.create_time</code>.
      */
     public void setCreateTime(LocalDateTime value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>backend.post.create_time</code>.
+     * Getter for <code>public.post.create_time</code>.
      */
     public LocalDateTime getCreateTime() {
         return (LocalDateTime) get(4);

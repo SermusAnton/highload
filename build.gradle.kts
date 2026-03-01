@@ -1,3 +1,6 @@
+import org.flywaydb.gradle.task.FlywayCleanTask
+import org.flywaydb.gradle.task.FlywayMigrateTask
+
 plugins {
     java
     id("org.springframework.boot") version "3.5.7"
@@ -43,10 +46,18 @@ dependencies {
     jooqCodegen("org.jooq:jooq")
     jooqCodegen("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.bitbucket.b_c:jose4j:0.9.6")
-    implementation("redis.clients:jedis:7.2.1")
+    implementation("org.lz4:lz4-java:1.7.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("at.yawk.lz4:lz4-java"))
+            .using(module("org.lz4:lz4-java:1.7.1"))
+            .because("Conflict with official org.lz4 artifact")
+    }
 }
 
 tasks.withType<Test> {
@@ -63,33 +74,18 @@ fun propValue(propName: String, defValue: String): String {
     return defValue
 }
 
-val dbHost = propValue ("DB_HOST","pgmaster")
+val dbHost = propValue ("DB_HOST","citus_master")
 val dbPort = propValue ("DB_PORT","5432")
-val dbUser = propValue ("DB_USER","backend")
-val dbPass = propValue ("DB_PASSWORD","backend")
-val dbName = propValue ("DB_NAME","highload")
-val dbSchema = propValue ("DB_SCHEMA","backend")
+val dbUser = propValue ("DB_USER","postgres")
+val dbPass = propValue ("DB_PASSWORD","postgres")
+val dbName = propValue ("DB_NAME","postgres")
+val dbSchema = propValue ("DB_SCHEMA","public")
 
 val postgresDb = propValue ("POSTGRES_DB", dbName)
 val postgresConString = propValue ("POSTGRES_CONNECTION_STRING",
     "jdbc:postgresql://$dbHost:$dbPort/$postgresDb")
 val postgresUser = propValue ("POSTGRES_USER", dbUser)
 val postgresPassword = propValue ("POSTGRES_PASSWORD", dbPass)
-
-tasks.register ("printProperties") {
-    println("DB_HOST -> $dbHost")
-    println("DB_PORT -> $dbPort")
-    println("DB_USER -> $dbUser")
-    println("DB_PASSWORD -> $dbPass")
-    println("DB_NAME -> $dbName")
-    println("DB_SCHEMA -> $dbSchema")
-    println("VERSION -> " + getRootProject().version)
-    println("----------------------------------------------")
-    println("POSTGRES_CONNECTION_STRING -> $postgresConString")
-    println("POSTGRES_USER -> $postgresUser")
-    println("POSTGRES_PASSWORD -> $postgresPassword")
-    println("POSTGRES_DB -> $postgresDb")
-}
 
 // Без этого не работает flyway
 buildscript {
@@ -102,11 +98,12 @@ buildscript {
 }
 
 flyway {
-    url = "jdbc:postgresql://pgmaster:5432/highload"
-    user = "backend"
-    password = "backend"
-    schemas = arrayOf("backend")
+    url = postgresConString
+    user = dbUser
+    password = dbPass
+    schemas = arrayOf(dbSchema)
     locations = arrayOf("filesystem:src/main/resources/db/migration")
+    createSchemas = true
     cleanDisabled = false
 }
 

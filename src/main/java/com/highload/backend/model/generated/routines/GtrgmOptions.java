@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Parameter;
 import org.jooq.impl.AbstractRoutine;
@@ -35,7 +35,7 @@ public class GtrgmOptions extends AbstractRoutine<java.lang.Void> {
      * Create a new routine call instance
      */
     public GtrgmOptions() {
-        super("gtrgm_options", Backend.BACKEND);
+        super("gtrgm_options", Public.PUBLIC);
 
         addInParameter(_1);
     }

@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -36,7 +36,7 @@ public class GtrgmUnion extends AbstractRoutine<Object> {
      * configuration.
      */
     @Deprecated
-    public static final Parameter<Object> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", DefaultDataType.getDefaultDataType("\"backend\".\"gtrgm\""), false, false);
+    public static final Parameter<Object> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", DefaultDataType.getDefaultDataType("\"public\".\"gtrgm\""), false, false);
 
     /**
      * @deprecated Unknown data type. If this is a qualified, user-defined type,
@@ -64,7 +64,7 @@ public class GtrgmUnion extends AbstractRoutine<Object> {
      * Create a new routine call instance
      */
     public GtrgmUnion() {
-        super("gtrgm_union", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"backend\".\"gtrgm\""));
+        super("gtrgm_union", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"public\".\"gtrgm\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

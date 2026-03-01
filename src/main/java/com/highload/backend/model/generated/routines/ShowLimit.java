@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Parameter;
 import org.jooq.impl.AbstractRoutine;
@@ -21,7 +21,7 @@ public class ShowLimit extends AbstractRoutine<Float> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.show_limit.RETURN_VALUE</code>.
+     * The parameter <code>public.show_limit.RETURN_VALUE</code>.
      */
     public static final Parameter<Float> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.REAL, false, false);
 
@@ -29,7 +29,7 @@ public class ShowLimit extends AbstractRoutine<Float> {
      * Create a new routine call instance
      */
     public ShowLimit() {
-        super("show_limit", Backend.BACKEND, SQLDataType.REAL);
+        super("show_limit", Public.PUBLIC, SQLDataType.REAL);
 
         setReturnParameter(RETURN_VALUE);
     }

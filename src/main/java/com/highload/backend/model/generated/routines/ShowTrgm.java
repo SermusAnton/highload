@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -22,12 +22,12 @@ public class ShowTrgm extends AbstractRoutine<String[]> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.show_trgm.RETURN_VALUE</code>.
+     * The parameter <code>public.show_trgm.RETURN_VALUE</code>.
      */
     public static final Parameter<String[]> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.CLOB.array(), false, false);
 
     /**
-     * The parameter <code>backend.show_trgm._1</code>.
+     * The parameter <code>public.show_trgm._1</code>.
      */
     public static final Parameter<String> _1 = Internal.createParameter("_1", SQLDataType.CLOB, false, true);
 
@@ -35,7 +35,7 @@ public class ShowTrgm extends AbstractRoutine<String[]> {
      * Create a new routine call instance
      */
     public ShowTrgm() {
-        super("show_trgm", Backend.BACKEND, SQLDataType.CLOB.array());
+        super("show_trgm", Public.PUBLIC, SQLDataType.CLOB.array());
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

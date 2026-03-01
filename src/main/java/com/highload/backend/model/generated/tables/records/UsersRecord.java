@@ -22,98 +22,98 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>backend.users.id</code>.
+     * Setter for <code>public.users.id</code>.
      */
     public void setId(UUID value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>backend.users.id</code>.
+     * Getter for <code>public.users.id</code>.
      */
     public UUID getId() {
         return (UUID) get(0);
     }
 
     /**
-     * Setter for <code>backend.users.first_name</code>.
+     * Setter for <code>public.users.first_name</code>.
      */
     public void setFirstName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>backend.users.first_name</code>.
+     * Getter for <code>public.users.first_name</code>.
      */
     public String getFirstName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>backend.users.second_name</code>.
+     * Setter for <code>public.users.second_name</code>.
      */
     public void setSecondName(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>backend.users.second_name</code>.
+     * Getter for <code>public.users.second_name</code>.
      */
     public String getSecondName() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>backend.users.birthdate</code>.
+     * Setter for <code>public.users.birthdate</code>.
      */
     public void setBirthdate(LocalDate value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>backend.users.birthdate</code>.
+     * Getter for <code>public.users.birthdate</code>.
      */
     public LocalDate getBirthdate() {
         return (LocalDate) get(3);
     }
 
     /**
-     * Setter for <code>backend.users.biography</code>.
+     * Setter for <code>public.users.biography</code>.
      */
     public void setBiography(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>backend.users.biography</code>.
+     * Getter for <code>public.users.biography</code>.
      */
     public String getBiography() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>backend.users.city</code>.
+     * Setter for <code>public.users.city</code>.
      */
     public void setCity(String value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>backend.users.city</code>.
+     * Getter for <code>public.users.city</code>.
      */
     public String getCity() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>backend.users.password_hash</code>.
+     * Setter for <code>public.users.password_hash</code>.
      */
     public void setPasswordHash(String value) {
         set(6, value);
     }
 
     /**
-     * Getter for <code>backend.users.password_hash</code>.
+     * Getter for <code>public.users.password_hash</code>.
      */
     public String getPasswordHash() {
         return (String) get(6);
