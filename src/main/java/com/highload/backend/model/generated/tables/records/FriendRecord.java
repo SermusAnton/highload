@@ -21,28 +21,28 @@ public class FriendRecord extends UpdatableRecordImpl<FriendRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>backend.friend.user_id</code>.
+     * Setter for <code>public.friend.user_id</code>.
      */
     public void setUserId(UUID value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>backend.friend.user_id</code>.
+     * Getter for <code>public.friend.user_id</code>.
      */
     public UUID getUserId() {
         return (UUID) get(0);
     }
 
     /**
-     * Setter for <code>backend.friend.friend_id</code>.
+     * Setter for <code>public.friend.friend_id</code>.
      */
     public void setFriendId(UUID value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>backend.friend.friend_id</code>.
+     * Getter for <code>public.friend.friend_id</code>.
      */
     public UUID getFriendId() {
         return (UUID) get(1);

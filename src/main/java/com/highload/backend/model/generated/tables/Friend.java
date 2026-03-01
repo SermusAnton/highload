@@ -4,8 +4,8 @@
 package com.highload.backend.model.generated.tables;
 
 
-import com.highload.backend.model.generated.Backend;
 import com.highload.backend.model.generated.Keys;
+import com.highload.backend.model.generated.Public;
 import com.highload.backend.model.generated.tables.Users.UsersPath;
 import com.highload.backend.model.generated.tables.records.FriendRecord;
 
@@ -45,7 +45,7 @@ public class Friend extends TableImpl<FriendRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>backend.friend</code>
+     * The reference instance of <code>public.friend</code>
      */
     public static final Friend FRIEND = new Friend();
 
@@ -58,12 +58,12 @@ public class Friend extends TableImpl<FriendRecord> {
     }
 
     /**
-     * The column <code>backend.friend.user_id</code>.
+     * The column <code>public.friend.user_id</code>.
      */
     public final TableField<FriendRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID.nullable(false), this, "");
 
     /**
-     * The column <code>backend.friend.friend_id</code>.
+     * The column <code>public.friend.friend_id</code>.
      */
     public final TableField<FriendRecord, UUID> FRIEND_ID = createField(DSL.name("friend_id"), SQLDataType.UUID.nullable(false), this, "");
 
@@ -76,21 +76,21 @@ public class Friend extends TableImpl<FriendRecord> {
     }
 
     /**
-     * Create an aliased <code>backend.friend</code> table reference
+     * Create an aliased <code>public.friend</code> table reference
      */
     public Friend(String alias) {
         this(DSL.name(alias), FRIEND);
     }
 
     /**
-     * Create an aliased <code>backend.friend</code> table reference
+     * Create an aliased <code>public.friend</code> table reference
      */
     public Friend(Name alias) {
         this(alias, FRIEND);
     }
 
     /**
-     * Create a <code>backend.friend</code> table reference
+     * Create a <code>public.friend</code> table reference
      */
     public Friend() {
         this(DSL.name("friend"), null);
@@ -131,7 +131,7 @@ public class Friend extends TableImpl<FriendRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Backend.BACKEND;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -147,7 +147,7 @@ public class Friend extends TableImpl<FriendRecord> {
     private transient UsersPath _fkUsersIdFriendFriendId;
 
     /**
-     * Get the implicit join path to the <code>backend.users</code> table, via
+     * Get the implicit join path to the <code>public.users</code> table, via
      * the <code>fk_users_id_friend_friend_id</code> key.
      */
     public UsersPath fkUsersIdFriendFriendId() {
@@ -160,7 +160,7 @@ public class Friend extends TableImpl<FriendRecord> {
     private transient UsersPath _fkUsersIdFriendUserId;
 
     /**
-     * Get the implicit join path to the <code>backend.users</code> table, via
+     * Get the implicit join path to the <code>public.users</code> table, via
      * the <code>fk_users_id_friend_user_id</code> key.
      */
     public UsersPath fkUsersIdFriendUserId() {

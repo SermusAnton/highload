@@ -40,11 +40,11 @@ public class JwtCreate {
 
         jws.setPayload(claims.toJson());
 
-        logger.info("Format: {}", rsaJsonWebKey.getPublicKey().getFormat());
-        logger.info("Algorithm: {}", rsaJsonWebKey.getPublicKey().getAlgorithm());
+        // logger.info("Format: {}", rsaJsonWebKey.getPublicKey().getFormat());
+        // logger.info("Algorithm: {}", rsaJsonWebKey.getPublicKey().getAlgorithm());
 
         String publicKeyJwkString = rsaJsonWebKey.toJson(JsonWebKey.OutputControlLevel.PUBLIC_ONLY);
-        logger.info("Public key: {}", publicKeyJwkString);
+        // logger.info("Public key: {}", publicKeyJwkString);
 
         jws.setKey(rsaJsonWebKey.getPrivateKey());
 

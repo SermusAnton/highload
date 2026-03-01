@@ -4,9 +4,9 @@
 package com.highload.backend.model.generated.tables;
 
 
-import com.highload.backend.model.generated.Backend;
 import com.highload.backend.model.generated.Indexes;
 import com.highload.backend.model.generated.Keys;
+import com.highload.backend.model.generated.Public;
 import com.highload.backend.model.generated.tables.Friend.FriendPath;
 import com.highload.backend.model.generated.tables.Post.PostPath;
 import com.highload.backend.model.generated.tables.records.UsersRecord;
@@ -49,7 +49,7 @@ public class Users extends TableImpl<UsersRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>backend.users</code>
+     * The reference instance of <code>public.users</code>
      */
     public static final Users USERS = new Users();
 
@@ -62,37 +62,37 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     /**
-     * The column <code>backend.users.id</code>.
+     * The column <code>public.users.id</code>.
      */
     public final TableField<UsersRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>backend.users.first_name</code>.
+     * The column <code>public.users.first_name</code>.
      */
     public final TableField<UsersRecord, String> FIRST_NAME = createField(DSL.name("first_name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>backend.users.second_name</code>.
+     * The column <code>public.users.second_name</code>.
      */
     public final TableField<UsersRecord, String> SECOND_NAME = createField(DSL.name("second_name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>backend.users.birthdate</code>.
+     * The column <code>public.users.birthdate</code>.
      */
     public final TableField<UsersRecord, LocalDate> BIRTHDATE = createField(DSL.name("birthdate"), SQLDataType.LOCALDATE, this, "");
 
     /**
-     * The column <code>backend.users.biography</code>.
+     * The column <code>public.users.biography</code>.
      */
     public final TableField<UsersRecord, String> BIOGRAPHY = createField(DSL.name("biography"), SQLDataType.VARCHAR(1000), this, "");
 
     /**
-     * The column <code>backend.users.city</code>.
+     * The column <code>public.users.city</code>.
      */
     public final TableField<UsersRecord, String> CITY = createField(DSL.name("city"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>backend.users.password_hash</code>.
+     * The column <code>public.users.password_hash</code>.
      */
     public final TableField<UsersRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR(100), this, "");
 
@@ -105,21 +105,21 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     /**
-     * Create an aliased <code>backend.users</code> table reference
+     * Create an aliased <code>public.users</code> table reference
      */
     public Users(String alias) {
         this(DSL.name(alias), USERS);
     }
 
     /**
-     * Create an aliased <code>backend.users</code> table reference
+     * Create an aliased <code>public.users</code> table reference
      */
     public Users(Name alias) {
         this(alias, USERS);
     }
 
     /**
-     * Create a <code>backend.users</code> table reference
+     * Create a <code>public.users</code> table reference
      */
     public Users() {
         this(DSL.name("users"), null);
@@ -160,7 +160,7 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Backend.BACKEND;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -176,7 +176,7 @@ public class Users extends TableImpl<UsersRecord> {
     private transient FriendPath _fkUsersIdFriendFriendId;
 
     /**
-     * Get the implicit to-many join path to the <code>backend.friend</code>
+     * Get the implicit to-many join path to the <code>public.friend</code>
      * table, via the <code>fk_users_id_friend_friend_id</code> key
      */
     public FriendPath fkUsersIdFriendFriendId() {
@@ -189,7 +189,7 @@ public class Users extends TableImpl<UsersRecord> {
     private transient FriendPath _fkUsersIdFriendUserId;
 
     /**
-     * Get the implicit to-many join path to the <code>backend.friend</code>
+     * Get the implicit to-many join path to the <code>public.friend</code>
      * table, via the <code>fk_users_id_friend_user_id</code> key
      */
     public FriendPath fkUsersIdFriendUserId() {
@@ -202,7 +202,7 @@ public class Users extends TableImpl<UsersRecord> {
     private transient PostPath _post;
 
     /**
-     * Get the implicit to-many join path to the <code>backend.post</code> table
+     * Get the implicit to-many join path to the <code>public.post</code> table
      */
     public PostPath post() {
         if (_post == null)

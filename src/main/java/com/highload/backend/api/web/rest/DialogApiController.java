@@ -3,59 +3,42 @@ package com.highload.backend.api.web.rest;
 import com.highload.backend.api.DialogApi;
 import com.highload.backend.model.DialogMessage;
 import com.highload.backend.model.UserIdSendBody;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.highload.backend.service.DialogService;
+import com.highload.backend.service.JwtCreate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import jakarta.validation.Valid;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class DialogApiController implements DialogApi {
 
-    private static final Logger log = LoggerFactory.getLogger(DialogApiController.class);
-
-    private final ObjectMapper objectMapper;
-
     private final HttpServletRequest request;
 
+    private final DialogService dialogService;
+
     @Autowired
-    public DialogApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
+    public DialogApiController(HttpServletRequest request, DialogService dialogService) {
         this.request = request;
+        this.dialogService = dialogService;
     }
 
-    public ResponseEntity<List<DialogMessage>> dialogList(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
-    ) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<DialogMessage>>(objectMapper.readValue("[ {\n  \"from\" : \"from\",\n  \"text\" : \"Привет, как дела?\"\n}, {\n  \"from\" : \"from\",\n  \"text\" : \"Привет, как дела?\"\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<DialogMessage>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<List<DialogMessage>>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<List<DialogMessage>> dialogList(UUID withUserId) {
+        var authorizationHeader = request.getHeader("Authorization");
+        var userId = UUID.fromString(JwtCreate.extractUserId(authorizationHeader));
+        var dialogs = dialogService.getListBy(userId, withUserId);
+        return new ResponseEntity<>(dialogs, HttpStatus.OK);
     }
 
-    public ResponseEntity<Void> dialogSend(@Parameter(in = ParameterIn.PATH, description = "", required = true, schema = @Schema()) @PathVariable("user_id") String userId
-        , @Parameter(in = ParameterIn.DEFAULT, description = "", schema = @Schema()) @Valid @RequestBody UserIdSendBody body
-    ) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> dialogSend(UUID toUserId, UserIdSendBody body) {
+        var authorizationHeader = request.getHeader("Authorization");
+        var fromUserId = UUID.fromString(JwtCreate.extractUserId(authorizationHeader));
+        dialogService.send(fromUserId, toUserId, body);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

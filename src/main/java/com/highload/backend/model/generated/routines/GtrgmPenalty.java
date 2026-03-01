@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -75,7 +75,7 @@ public class GtrgmPenalty extends AbstractRoutine<Object> {
      * Create a new routine call instance
      */
     public GtrgmPenalty() {
-        super("gtrgm_penalty", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
+        super("gtrgm_penalty", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -23,7 +23,7 @@ public class GtrgmDistance extends AbstractRoutine<Double> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.gtrgm_distance.RETURN_VALUE</code>.
+     * The parameter <code>public.gtrgm_distance.RETURN_VALUE</code>.
      */
     public static final Parameter<Double> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.DOUBLE, false, false);
 
@@ -39,17 +39,17 @@ public class GtrgmDistance extends AbstractRoutine<Double> {
     public static final Parameter<Object> _1 = Internal.createParameter("_1", DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""), false, true);
 
     /**
-     * The parameter <code>backend.gtrgm_distance._2</code>.
+     * The parameter <code>public.gtrgm_distance._2</code>.
      */
     public static final Parameter<String> _2 = Internal.createParameter("_2", SQLDataType.CLOB, false, true);
 
     /**
-     * The parameter <code>backend.gtrgm_distance._3</code>.
+     * The parameter <code>public.gtrgm_distance._3</code>.
      */
     public static final Parameter<Short> _3 = Internal.createParameter("_3", SQLDataType.SMALLINT, false, true);
 
     /**
-     * The parameter <code>backend.gtrgm_distance._4</code>.
+     * The parameter <code>public.gtrgm_distance._4</code>.
      */
     public static final Parameter<Long> _4 = Internal.createParameter("_4", SQLDataType.BIGINT, false, true);
 
@@ -68,7 +68,7 @@ public class GtrgmDistance extends AbstractRoutine<Double> {
      * Create a new routine call instance
      */
     public GtrgmDistance() {
-        super("gtrgm_distance", Backend.BACKEND, SQLDataType.DOUBLE);
+        super("gtrgm_distance", Public.PUBLIC, SQLDataType.DOUBLE);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -23,7 +23,7 @@ public class GinTrgmConsistent extends AbstractRoutine<Boolean> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.gin_trgm_consistent.RETURN_VALUE</code>.
+     * The parameter <code>public.gin_trgm_consistent.RETURN_VALUE</code>.
      */
     public static final Parameter<Boolean> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.BOOLEAN, false, false);
 
@@ -39,17 +39,17 @@ public class GinTrgmConsistent extends AbstractRoutine<Boolean> {
     public static final Parameter<Object> _1 = Internal.createParameter("_1", DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""), false, true);
 
     /**
-     * The parameter <code>backend.gin_trgm_consistent._2</code>.
+     * The parameter <code>public.gin_trgm_consistent._2</code>.
      */
     public static final Parameter<Short> _2 = Internal.createParameter("_2", SQLDataType.SMALLINT, false, true);
 
     /**
-     * The parameter <code>backend.gin_trgm_consistent._3</code>.
+     * The parameter <code>public.gin_trgm_consistent._3</code>.
      */
     public static final Parameter<String> _3 = Internal.createParameter("_3", SQLDataType.CLOB, false, true);
 
     /**
-     * The parameter <code>backend.gin_trgm_consistent._4</code>.
+     * The parameter <code>public.gin_trgm_consistent._4</code>.
      */
     public static final Parameter<Integer> _4 = Internal.createParameter("_4", SQLDataType.INTEGER, false, true);
 
@@ -101,7 +101,7 @@ public class GinTrgmConsistent extends AbstractRoutine<Boolean> {
      * Create a new routine call instance
      */
     public GinTrgmConsistent() {
-        super("gin_trgm_consistent", Backend.BACKEND, SQLDataType.BOOLEAN);
+        super("gin_trgm_consistent", Public.PUBLIC, SQLDataType.BOOLEAN);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

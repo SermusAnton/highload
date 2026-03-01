@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -40,7 +40,7 @@ public class GinExtractValueTrgm extends AbstractRoutine<Object> {
     public static final Parameter<Object> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""), false, false);
 
     /**
-     * The parameter <code>backend.gin_extract_value_trgm._1</code>.
+     * The parameter <code>public.gin_extract_value_trgm._1</code>.
      */
     public static final Parameter<String> _1 = Internal.createParameter("_1", SQLDataType.CLOB, false, true);
 
@@ -59,7 +59,7 @@ public class GinExtractValueTrgm extends AbstractRoutine<Object> {
      * Create a new routine call instance
      */
     public GinExtractValueTrgm() {
-        super("gin_extract_value_trgm", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
+        super("gin_extract_value_trgm", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

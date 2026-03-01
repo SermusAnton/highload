@@ -1,17 +1,12 @@
 services:
-  db_pgmaster:
-    build: /pgmaster
-    container_name: pgmaster
-    ports:
-      - 5432:5432
 
   backend:
     build: ./
     container_name: backend
     ports:
       - 8080:8080
-    depends_on:
-      - db_pgmaster
+    networks:
+      - shared_net
 
   jmeter:
     build: /jmeter
@@ -20,6 +15,8 @@ services:
       - 9270:9270
     depends_on:
       - backend
+    networks:
+      - shared_net
 
   prometheus:
     image: prom/prometheus:v3.8.1
@@ -37,6 +34,8 @@ services:
       - 9090:9090
     depends_on:
       - jmeter
+    networks:
+      - shared_net
 
   grafana:
     image: grafana/grafana:12.3.1
@@ -60,3 +59,10 @@ services:
       - GF_SMTP_FROM_ADDRESS=myaddress@gmail.com
     depends_on:
       - prometheus
+    networks:
+      - shared_net
+
+networks:
+  shared_net:
+    external: true
+    name: my_shared_network

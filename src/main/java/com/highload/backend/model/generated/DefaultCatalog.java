@@ -26,9 +26,9 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>backend</code>.
+     * The schema <code>public</code>.
      */
-    public final Backend BACKEND = Backend.BACKEND;
+    public final Public PUBLIC = Public.PUBLIC;
 
     /**
      * No further instances allowed
@@ -40,7 +40,7 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            Backend.BACKEND
+            Public.PUBLIC
         );
     }
 

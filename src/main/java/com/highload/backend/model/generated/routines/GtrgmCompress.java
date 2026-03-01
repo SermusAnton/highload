@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -53,7 +53,7 @@ public class GtrgmCompress extends AbstractRoutine<Object> {
      * Create a new routine call instance
      */
     public GtrgmCompress() {
-        super("gtrgm_compress", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
+        super("gtrgm_compress", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

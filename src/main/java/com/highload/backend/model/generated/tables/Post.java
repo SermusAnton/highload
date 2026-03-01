@@ -4,8 +4,8 @@
 package com.highload.backend.model.generated.tables;
 
 
-import com.highload.backend.model.generated.Backend;
 import com.highload.backend.model.generated.Keys;
+import com.highload.backend.model.generated.Public;
 import com.highload.backend.model.generated.tables.Users.UsersPath;
 import com.highload.backend.model.generated.tables.records.PostRecord;
 
@@ -46,7 +46,7 @@ public class Post extends TableImpl<PostRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>backend.post</code>
+     * The reference instance of <code>public.post</code>
      */
     public static final Post POST = new Post();
 
@@ -59,27 +59,27 @@ public class Post extends TableImpl<PostRecord> {
     }
 
     /**
-     * The column <code>backend.post.id</code>.
+     * The column <code>public.post.id</code>.
      */
     public final TableField<PostRecord, UUID> ID = createField(DSL.name("id"), SQLDataType.UUID.nullable(false).defaultValue(DSL.field(DSL.raw("gen_random_uuid()"), SQLDataType.UUID)), this, "");
 
     /**
-     * The column <code>backend.post.user_id</code>.
+     * The column <code>public.post.user_id</code>.
      */
     public final TableField<PostRecord, UUID> USER_ID = createField(DSL.name("user_id"), SQLDataType.UUID, this, "");
 
     /**
-     * The column <code>backend.post.text</code>.
+     * The column <code>public.post.text</code>.
      */
     public final TableField<PostRecord, String> TEXT = createField(DSL.name("text"), SQLDataType.VARCHAR(2000), this, "");
 
     /**
-     * The column <code>backend.post.is_deleted</code>.
+     * The column <code>public.post.is_deleted</code>.
      */
     public final TableField<PostRecord, Boolean> IS_DELETED = createField(DSL.name("is_deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>backend.post.create_time</code>.
+     * The column <code>public.post.create_time</code>.
      */
     public final TableField<PostRecord, LocalDateTime> CREATE_TIME = createField(DSL.name("create_time"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.LOCALDATETIME)), this, "");
 
@@ -92,21 +92,21 @@ public class Post extends TableImpl<PostRecord> {
     }
 
     /**
-     * Create an aliased <code>backend.post</code> table reference
+     * Create an aliased <code>public.post</code> table reference
      */
     public Post(String alias) {
         this(DSL.name(alias), POST);
     }
 
     /**
-     * Create an aliased <code>backend.post</code> table reference
+     * Create an aliased <code>public.post</code> table reference
      */
     public Post(Name alias) {
         this(alias, POST);
     }
 
     /**
-     * Create a <code>backend.post</code> table reference
+     * Create a <code>public.post</code> table reference
      */
     public Post() {
         this(DSL.name("post"), null);
@@ -147,7 +147,7 @@ public class Post extends TableImpl<PostRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Backend.BACKEND;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -163,7 +163,7 @@ public class Post extends TableImpl<PostRecord> {
     private transient UsersPath _users;
 
     /**
-     * Get the implicit join path to the <code>backend.users</code> table.
+     * Get the implicit join path to the <code>public.users</code> table.
      */
     public UsersPath users() {
         if (_users == null)

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 
 import java.util.List;
+import java.util.UUID;
 
 @Validated
 public interface DialogApi {
@@ -38,7 +39,7 @@ public interface DialogApi {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
     @GetMapping(value = "/dialog/{user_id}/list")
     ResponseEntity<List<DialogMessage>> dialogList(
-        @Parameter(in = ParameterIn.PATH, required = true, schema = @Schema()) @PathVariable("user_id") String userId
+        @Parameter(in = ParameterIn.PATH, required = true, schema = @Schema()) @PathVariable("user_id") UUID userId
     );
 
     @Operation(description = "Получение диалога между двумя пользователями", security = {
@@ -53,7 +54,7 @@ public interface DialogApi {
             content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class)))})
     @PostMapping(value = "/dialog/{user_id}/send")
     ResponseEntity<Void> dialogSend(
-        @Parameter(in = ParameterIn.PATH, required = true, schema = @Schema()) @PathVariable("user_id") String userId,
+        @Parameter(in = ParameterIn.PATH, required = true, schema = @Schema()) @PathVariable("user_id") UUID userId,
         @Parameter(in = ParameterIn.DEFAULT, schema = @Schema()) @Valid @RequestBody UserIdSendBody body
     );
 }

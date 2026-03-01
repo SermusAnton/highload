@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -64,7 +64,7 @@ public class GtrgmPicksplit extends AbstractRoutine<Object> {
      * Create a new routine call instance
      */
     public GtrgmPicksplit() {
-        super("gtrgm_picksplit", Backend.BACKEND, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
+        super("gtrgm_picksplit", Public.PUBLIC, DefaultDataType.getDefaultDataType("\"pg_catalog\".\"internal\""));
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);

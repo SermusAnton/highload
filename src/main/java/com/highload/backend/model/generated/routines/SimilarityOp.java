@@ -4,7 +4,7 @@
 package com.highload.backend.model.generated.routines;
 
 
-import com.highload.backend.model.generated.Backend;
+import com.highload.backend.model.generated.Public;
 
 import org.jooq.Field;
 import org.jooq.Parameter;
@@ -22,17 +22,17 @@ public class SimilarityOp extends AbstractRoutine<Boolean> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The parameter <code>backend.similarity_op.RETURN_VALUE</code>.
+     * The parameter <code>public.similarity_op.RETURN_VALUE</code>.
      */
     public static final Parameter<Boolean> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.BOOLEAN, false, false);
 
     /**
-     * The parameter <code>backend.similarity_op._1</code>.
+     * The parameter <code>public.similarity_op._1</code>.
      */
     public static final Parameter<String> _1 = Internal.createParameter("_1", SQLDataType.CLOB, false, true);
 
     /**
-     * The parameter <code>backend.similarity_op._2</code>.
+     * The parameter <code>public.similarity_op._2</code>.
      */
     public static final Parameter<String> _2 = Internal.createParameter("_2", SQLDataType.CLOB, false, true);
 
@@ -40,7 +40,7 @@ public class SimilarityOp extends AbstractRoutine<Boolean> {
      * Create a new routine call instance
      */
     public SimilarityOp() {
-        super("similarity_op", Backend.BACKEND, SQLDataType.BOOLEAN);
+        super("similarity_op", Public.PUBLIC, SQLDataType.BOOLEAN);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_1);
