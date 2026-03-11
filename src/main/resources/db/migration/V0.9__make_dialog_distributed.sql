@@ -1,1 +1,0 @@
-SELECT create_distributed_table('dialog', 'sum_user_hash');

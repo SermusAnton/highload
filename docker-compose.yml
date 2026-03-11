@@ -1,5 +1,50 @@
 services:
 
+  db:
+    image: postgres:15.14
+    container_name: master
+    restart: always
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-postgres}"
+      POSTGRES_DB: "${POSTGRES_DB:-postgres}"
+      POSTGRES_HOST_AUTH_METHOD: "${POSTGRES_HOST_AUTH_METHOD:-trust}"
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - shared_net
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq-stomp
+    ports:
+      # AMQP (стандартный протокол)
+      - 5672:5672
+      # Management UI (админка)
+      - 15672:15672
+      # Web STOMP (WebSocket)
+      - 15674:15674
+      #STOMP (для Spring Broker Relay)
+      - 61613:61613
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      # Включаем плагин Web STOMP при запуске
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_opts [{plugins, [rabbitmq_web_stomp]}]"
+      RABBITMQ_ENABLED_PLUGINS: "rabbitmq_stomp,rabbitmq_web_stomp,rabbitmq_management"
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "check_port_connectivity" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Создаем файл со списком плагинов прямо при запуске
+    entrypoint: >
+      sh -c "echo '[rabbitmq_stomp,rabbitmq_web_stomp,rabbitmq_management].' > /etc/rabbitmq/enabled_plugins && exec rabbitmq-server"
+    networks:
+      - shared_net
+
   backend:
     build: ./
     container_name: backend
@@ -66,3 +111,6 @@ networks:
   shared_net:
     external: true
     name: my_shared_network
+
+volumes:
+  postgres_data:
