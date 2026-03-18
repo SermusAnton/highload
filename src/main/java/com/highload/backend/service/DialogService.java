@@ -5,8 +5,6 @@ import com.highload.backend.model.DialogMessage;
 import com.highload.backend.model.UserIdSendBody;
 import net.jpountz.xxhash.XXHash64;
 import net.jpountz.xxhash.XXHashFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.nio.ByteBuffer;
@@ -15,8 +13,6 @@ import java.util.UUID;
 
 @Service
 public class DialogService {
-
-    private static final Logger logger = LoggerFactory.getLogger(JwtCreate.class);
 
     private final DialogRepository dialogRepository;
 

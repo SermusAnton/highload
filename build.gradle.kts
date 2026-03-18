@@ -33,12 +33,7 @@ var springSecurityCryptoVersion = "7.0.0-M3"
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
-    implementation("org.springframework.boot:spring-boot-starter-aop")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.security:spring-security-crypto:$springSecurityCryptoVersion")
-    implementation("org.springframework.boot:spring-boot-starter-websocket")
-    implementation("org.springframework.boot:spring-boot-starter-amqp")
-    implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
     implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
@@ -77,7 +72,7 @@ fun propValue(propName: String, defValue: String): String {
     return defValue
 }
 
-val dbHost = propValue ("DB_HOST","master")
+val dbHost = propValue ("DB_HOST","localhost")
 val dbPort = propValue ("DB_PORT","5432")
 val dbUser = propValue ("DB_USER","postgres")
 val dbPass = propValue ("DB_PASSWORD","postgres")

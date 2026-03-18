@@ -1,7 +1,5 @@
 package com.highload.backend.service;
 
-import com.highload.backend.configuration.ReadOnly;
-import com.highload.backend.configuration.Write;
 import com.highload.backend.dao.UserRepository;
 import com.highload.backend.model.User;
 import com.highload.backend.model.UserRegisterBody;
@@ -25,19 +23,16 @@ public class UserService {
         this.encoder = encoder;
     }
 
-    @ReadOnly
     public User getBy(UUID userId) {
         return userRepository.getBy(userId);
     }
 
-    @Write
     public UUID register(UserRegisterBody body) {
         var hash = encoder.encode(body.getPassword());
         body.setPassword("");
         return userRepository.add(body, hash);
     }
 
-    @ReadOnly
     public List<User> search(String firstName, String lastName) {
         return userRepository.find(firstName, lastName);
     }

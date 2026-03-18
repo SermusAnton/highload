@@ -5,7 +5,6 @@ import com.highload.backend.model.Post;
 import com.highload.backend.model.PostCreateBody;
 import com.highload.backend.model.PostUpdateBody;
 
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,20 +14,12 @@ import java.util.UUID;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final SimpMessagingTemplate messagingTemplate;
 
-    public PostService(PostRepository postRepository, SimpMessagingTemplate messagingTemplate) {
+    public PostService(PostRepository postRepository) {
         this.postRepository = postRepository;
-        this.messagingTemplate = messagingTemplate;
     }
 
     public UUID add(UUID userId, PostCreateBody body) {
-        // Формируем ключ на основе данных (например, ID автора или категории)
-        String routingKey = "user." + userId + ".posted";
-
-        // Отправляем в конкретный exchange amq.topic с динамическим ключом
-        messagingTemplate.convertAndSend("/topic/user." + userId + ".posted", body);
-
         return postRepository.add(userId, body.getText());
     }
 
