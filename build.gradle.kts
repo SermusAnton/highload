@@ -1,6 +1,3 @@
-import org.flywaydb.gradle.task.FlywayCleanTask
-import org.flywaydb.gradle.task.FlywayMigrateTask
-
 plugins {
     java
     id("org.springframework.boot") version "3.5.7"
@@ -29,6 +26,7 @@ var springdocVersion = "2.8.13"
 var swaggerVersion = "2.2.40"
 var jakartaValidationVersion = "3.1.1"
 var springSecurityCryptoVersion = "7.0.0-M3"
+var springDataTarantoolVersion = "0.6.1"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -45,6 +43,7 @@ dependencies {
     jooqCodegen("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.bitbucket.b_c:jose4j:0.9.6")
     implementation("org.lz4:lz4-java:1.7.1")
+    implementation("io.tarantool:spring-data-tarantool:$springDataTarantoolVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -72,7 +71,7 @@ fun propValue(propName: String, defValue: String): String {
     return defValue
 }
 
-val dbHost = propValue ("DB_HOST","localhost")
+val dbHost = propValue ("DB_HOST","master")
 val dbPort = propValue ("DB_PORT","5432")
 val dbUser = propValue ("DB_USER","postgres")
 val dbPass = propValue ("DB_PASSWORD","postgres")
