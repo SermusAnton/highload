@@ -1,5 +1,32 @@
 services:
 
+  tarantool:
+    image: tarantool/tarantool:3.6.2
+    container_name: tarantool
+    ports:
+      - "3301:3301"
+    environment:
+      TARANTOOL_USER_NAME: admin
+      TARANTOOL_USER_PASSWORD: admin
+      # Увеличьте, если данных много. 512MB — это база.
+      TARANTOOL_MEMTX_MEMORY: 536870912
+    volumes:
+      # КРИТИЧНО: Используем именованный volume для скорости (внутри WSL2)
+      - tarantool_data:/var/lib/tarantool
+      # Скрипт оставляем как есть
+      - ./tarantool/init.lua:/opt/tarantool/init.lua
+    # Для версии 3.6+ лучше использовать стандартную точку входа,
+    # а init.lua подкладывать в /opt/tarantool/
+    command: tarantool /opt/tarantool/init.lua
+    networks:
+      - shared_net
+    # Ограничение ресурсов, чтобы Docker не "отъел" всё у Windows
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1G
+
   db:
     image: postgres:15.14
     container_name: master
@@ -21,6 +48,8 @@ services:
     container_name: backend
     ports:
       - 8080:8080
+    depends_on:
+      - tarantool
     networks:
       - shared_net
 
@@ -85,3 +114,4 @@ networks:
 
 volumes:
   postgres_data:
+  tarantool_data:

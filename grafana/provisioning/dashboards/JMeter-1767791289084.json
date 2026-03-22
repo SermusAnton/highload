@@ -204,7 +204,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum(rate(jmeter_success_ratio_success[$__interval]))",
+          "expr": "sum by (endpoint) (\r\n  rate(\r\n    label_replace(\r\n      jmeter_success_ratio_success, \r\n      \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n    )[$__interval:]\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -217,7 +217,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum(rate(jmeter_success_ratio_failure[$__interval]))",
+          "expr": "sum by (endpoint) (\r\n  label_replace(\r\n    rate(jmeter_success_ratio_failure[$__interval]),\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -230,7 +230,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum(rate(jmeter_success_ratio_total[$__interval])) by (label)",
+          "expr": "sum by (endpoint) (\r\n  label_replace(\r\n    rate(jmeter_success_ratio_total[$__interval]),\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -243,7 +243,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "sum(rate(jmeter_success_ratio_failure[$__interval])) by (label)",
+          "expr": "sum by (endpoint) (\r\n  label_replace(\r\n    rate(jmeter_success_ratio_failure[$__interval]),\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -343,7 +343,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "avg (rate(jmeter_rt_summary_sum{code=~\"1.*|2.*|3.*|4.*|5.*\"}[$__interval]) / (rate(jmeter_rt_summary_count{code=~\"1.*|2.*|3.*|4.*|5.*\"}[$__interval])>0)) by (label)",
+          "expr": "avg by (endpoint) (\r\n  label_replace(\r\n    rate(jmeter_rt_summary_sum{code=~\"[1-5].*\"}[$__interval]),\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n  /\r\n  label_replace(\r\n    (rate(jmeter_rt_summary_count{code=~\"[1-5].*\"}[$__interval]) > 0),\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -356,7 +356,7 @@
             "uid": "P1809F7CD0C75ACF3"
           },
           "editorMode": "code",
-          "expr": "avg(jmeter_rt_summary{code=\"200\"}) by (quantile)",
+          "expr": "avg by (quantile, endpoint) (\r\n  label_replace(\r\n    jmeter_rt_summary{code=\"200\"},\r\n    \"endpoint\", \"$1\", \"label\", \".*/(list|send)$\"\r\n  )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -382,5 +382,5 @@
   "timezone": "browser",
   "title": "JMeter",
   "uid": "ad4l86j",
-  "version": 3
+  "version": 1
 }
