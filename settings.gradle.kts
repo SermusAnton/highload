@@ -1,1 +1,4 @@
-rootProject.name = "backend"
+rootProject.name = "highload"
+
+include("backend")
+include("dialog")
